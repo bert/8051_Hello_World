@@ -1,0 +1,467 @@
+Turbo51 version 0.1.3.10, Copyright 2000 - 2011 Igor Funa
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+Example2
+------------------------------------------------------------------------------------------------------------------------------------------------
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas
+                                                                                Segment  Address   Size
+------------------------------------------------------------------------------------------------------------------------------------------------
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (43)             CODE        000B         begin
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (44)             CODE        0012           TL0 :=  Lo (Const1ms);
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (45)             CODE        0015           TH0 :=  Hi (Const1ms);
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (46)             CODE        0018         
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (47)             CODE        0018           Inc (BlinkTimer);
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (48)             CODE        0020           Blink := BlinkTimer and $0200 <> 0;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (49)             CODE        0026           If DelayTimer <> 0 then Dec (DelayTimer);
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (50)             CODE        0035         end;
+Timer_1ms                                                                       CODE        000B   002F
+
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (53)             CODE        003A         begin
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (54)             CODE        003A           DelayTimer := DelayTime;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (55)             CODE        0040           Repeat
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (56)             CODE        0040           until DelayTimer = 0;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (57)             CODE        0046         end;
+Delay                                                                           CODE        003A   000D
+Delay.DelayTime                                                                 DATA          2A     02
+
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (60)             CODE        0047         begin
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (61)             CODE        0047           SAA7121_Reset := False;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (62)             CODE        0049         
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (63)             CODE        0049           TL0 :=  Lo (Const1ms);
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (64)             CODE        004C           TH0 :=  Hi (Const1ms);
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (65)             CODE        004F           PCON := $00;       { no IDLE, no POWER DOWN }
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (66)             CODE        0052           TMOD := %00100001; { Timer1: no GATE, Timer,  8 bit timer, autoreload }
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (67)             CODE        0055                              { Timer0: no GATE, Timer, 16 bit timer }
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (68)             CODE        0055           TCON := %01010101; { Timer 1 run, Timer 0 run }
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (69)             CODE        0058                              { Int1 falling edge, Int0 falling edge }
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (70)             CODE        0058           IE   := %10000010; { Timer0}
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (71)             CODE        005B         
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (72)             CODE        005B           Delay (50);
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (73)             CODE        0064           SAA7121_Reset := True;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (74)             CODE        0066           Delay (10);
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (75)             CODE        006F         
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (76)             CODE        006F           If not Key1 then Mode := mdTest else Mode := mdNormal;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (77)             CODE        0079         end;
+Init                                                                            CODE        0047   0033
+
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (79)             CODE        007A         begin
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (80)             CODE        007D           Init;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (81)             CODE        0082         
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (82)             CODE        0082           While not I2C_AddressPresent (I2C_SAA7129_High) do
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (83)             CODE        0084             begin
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (84)             CODE        0084               Led1 := Blink;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (85)             CODE        0088               Led2 := Blink;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (86)             CODE        008C               Led3 := Blink;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (87)             CODE        0090               Led4 := Blink;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (88)             CODE        0094             end;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (89)             CODE        009B         
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (90)             CODE        009B           Start_I2C;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (91)             CODE        009E           Send_I2C_Byte (I2C_SAA7129_High);
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (92)             CODE        00A4           Send_I2C_Byte ($00);
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (93)             CODE        00AA           For Register := $00 to $7F do
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (94)             CODE        00AF             Case Mode of
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (95)             CODE        00B1               mdTest:   Send_I2C_Byte (Registers_Test   [Register]);
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (96)             CODE        00C1               mdNormal: Send_I2C_Byte (Registers_Normal [Register]);
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (97)             CODE        00D4             end;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (98)             CODE        00D4           Stop_I2C;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (99)             CODE        00D7         
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (100)            CODE        00D7           Repeat
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (101)            CODE        00D7             Case Mode of
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (102)            CODE        00D9               mdTest: begin
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (103)            CODE        00DC                         Led1 := Blink;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (104)            CODE        00E0                         Led2 := True;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (105)            CODE        00E2                         Led3 := True;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (106)            CODE        00E4                         Led4 := True;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (107)            CODE        00E6                       end;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (108)            CODE        00E8               mdNormal: begin
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (109)            CODE        00EB                           Led1 := False;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (110)            CODE        00ED                           Led2 := False;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (111)            CODE        00EF                           Led3 := False;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (112)            CODE        00F1                           Led4 := False;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (113)            CODE        00F3                         end;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (114)            CODE        00F3             end;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (115)            CODE        00F3           until False;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (116)            CODE        00F5         end.
+Key1                                                                            BIT         P1.7 (97)    
+Key2                                                                            BIT         P1.6 (96)    
+Key3                                                                            BIT         P1.5 (95)    
+Key4                                                                            BIT         P1.4 (94)    
+Led1                                                                            BIT         P1.3 (93)    
+Led2                                                                            BIT         P1.2 (92)    
+Led3                                                                            BIT         P1.1 (91)    
+Led4                                                                            BIT         P1.0 (90)    
+SAA7121_Reset                                                                   BIT         P3.7 (B7)    
+BlinkTimer                                                                      DATA          24     02
+Blink                                                                           BIT         20.2 (02)    
+DelayTimer                                                                      DATA          26     02
+Register                                                                        DATA          28     01
+Mode                                                                            DATA          29     01
+------------------------------------------------------------------------------------------------------------------------------------------------
+Example2                                                                        CODE        007A   007B
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+SAA7129
+------------------------------------------------------------------------------------------------------------------------------------------------
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\SAA7129.pas
+                                                                                Segment  Address   Size
+------------------------------------------------------------------------------------------------------------------------------------------------
+Registers_Test                                                                  CODE        014E   0080
+Registers_Normal                                                                CODE        01CE   0080
+------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+I2C
+------------------------------------------------------------------------------------------------------------------------------------------------
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas
+                                                                                Segment  Address   Size
+------------------------------------------------------------------------------------------------------------------------------------------------
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (36)                  CODE        00F5         begin
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (37)                  CODE        00F5           SCL := High;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (38)                  CODE        00F7           Asm
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (39)                  CODE        00F7             NOP
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (40)                  CODE        00F8             NOP
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (41)                  CODE        00F9           end;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (42)                  CODE        00F9           SDA := Low;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (43)                  CODE        00FB           Asm
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (44)                  CODE        00FB             NOP
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (45)                  CODE        00FC             NOP
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (46)                  CODE        00FD           end;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (47)                  CODE        00FD           SCL := Low;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (48)                  CODE        00FF         end;
+Start_I2C                                                                       CODE        00F5   000B
+
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (51)                  CODE        0100         begin
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (52)                  CODE        0100           SDA := Low;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (53)                  CODE        0102           Asm
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (54)                  CODE        0102             NOP
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (55)                  CODE        0103             NOP
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (56)                  CODE        0104           end;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (57)                  CODE        0104           SCL := High;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (58)                  CODE        0106           Asm
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (59)                  CODE        0106             NOP
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (60)                  CODE        0107             NOP
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (61)                  CODE        0108           end;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (62)                  CODE        0108           SDA := High;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (63)                  CODE        010A         end;
+Stop_I2C                                                                        CODE        0100   000B
+
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (66)                  CODE        010B         begin
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (67)                  CODE        010B           For BitCounter := 1 to 8 do
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (68)                  CODE        0112             begin
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (69)                  CODE        0112               SDA := (Data2Send and $80) <> 0;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (70)                  CODE        0116               Asm
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (71)                  CODE        0116                 NOP
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (72)                  CODE        0117                 NOP
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (73)                  CODE        0118               end;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (74)                  CODE        0118               SCL := High;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (75)                  CODE        011A               Asm
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (76)                  CODE        011A                 NOP
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (77)                  CODE        011B                 NOP
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (78)                  CODE        011C               end;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (79)                  CODE        011C               SCL := Low;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (80)                  CODE        011E               Data2Send := Data2Send shl 1;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (81)                  CODE        0122             end;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (82)                  CODE        0127           Asm
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (83)                  CODE        0127             NOP
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (84)                  CODE        0128           end;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (85)                  CODE        0128           SDA := High;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (86)                  CODE        012A           Asm
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (87)                  CODE        012A             NOP
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (88)                  CODE        012B             NOP
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (89)                  CODE        012C           end;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (90)                  CODE        012C           SCL := High;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (91)                  CODE        012E           Asm
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (92)                  CODE        012E             NOP
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (93)                  CODE        012F             NOP
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (94)                  CODE        0130           end;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (95)                  CODE        0130           Ack := not SDA;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (96)                  CODE        0135           SCL := Low;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (97)                  CODE        0137         end;
+Send_I2C_Byte                                                                   CODE        010B   002D
+Send_I2C_Byte.Data2Send                                                         DATA          21     01
+
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (144)                 CODE        0003         begin
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (145)                 CODE        0003         Asm
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (146)                 CODE        0003           MUL  AB
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (147)                 CODE        0004           MUL  AB
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (148)                 CODE        0005           MUL  AB
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (149)                 CODE        0006           MUL  AB
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (150)                 CODE        0007           MUL  AB
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (151)                 CODE        0008           MUL  AB
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (152)                 CODE        0009           MUL  AB
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (153)                 CODE        000A         end;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (154)                 CODE        000A         end;
+Delay                                                                           CODE        0003   0008   [Local]
+
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (157)                 CODE        0138         begin
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (158)                 CODE        0138           Start_I2C;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (159)                 CODE        013B           Send_I2C_Byte (IIC_Adr);
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (160)                 CODE        0141           Stop_I2C;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (161)                 CODE        0144           I2C_AddressPresent := Ack;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (162)                 CODE        0148           Delay;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (163)                 CODE        014B         end;
+I2C_AddressPresent                                                              CODE        0138   0016
+I2C_AddressPresent.I2C_AddressPresent_Result                                    BIT         20.1 (01)    
+I2C_AddressPresent.Result                                                       BIT         20.1 (01)    
+I2C_AddressPresent.IIC_Adr                                                      DATA          22     01
+Ack                                                                             BIT         20.0 (00)    
+SCL                                                                             BIT         P3.4 (B4)    
+SDA                                                                             BIT         P3.5 (B5)    
+------------------------------------------------------------------------------------------------------------------------------------------------
+BitCounter                                                                      DATA          23     01   [Local]
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+System                                                                         NO DEBUG INFO
+------------------------------------------------------------------------------------------------------------------------------------------------
+D:\Projects\Turbo51\RTL\System\System.pas
+                                                                                Segment  Address   Size
+------------------------------------------------------------------------------------------------------------------------------------------------
+StackStart                                                                      IDATA         2C     01
+XDATA_StackStart                                                                XDATA       0000   0002
+------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+Segment  Address   Size                                                         Symbol
+------------------------------------------------------------------------------------------------------------------------------------------------
+CODE        0003   0008                                                         I2C.Delay
+CODE        000B   002F                                                         Example2.Timer_1ms
+CODE        003A   000D                                                         Example2.Delay
+CODE        0047   0033                                                         Example2.Init
+CODE        007A   007B                                                         Example2
+CODE        00F5   000B                                                         I2C.Start_I2C
+CODE        0100   000B                                                         I2C.Stop_I2C
+CODE        010B   002D                                                         I2C.Send_I2C_Byte
+CODE        0138   0016                                                         I2C.I2C_AddressPresent
+CODE        014E   0080                                                         SAA7129.Registers_Test
+CODE        01CE   0080                                                         SAA7129.Registers_Normal
+
+BIT         20.0 (00)                                                           I2C.Ack
+BIT         20.1 (01)                                                           I2C.I2C_AddressPresent.Result
+BIT         20.1 (01)                                                           I2C.I2C_AddressPresent.I2C_AddressPresent_Result
+BIT         20.2 (02)                                                           Example2.Blink
+
+BIT         P1.0 (90)                                                           Example2.Led4
+BIT         P1.1 (91)                                                           Example2.Led3
+BIT         P1.2 (92)                                                           Example2.Led2
+BIT         P1.3 (93)                                                           Example2.Led1
+BIT         P1.4 (94)                                                           Example2.Key4
+BIT         P1.5 (95)                                                           Example2.Key3
+BIT         P1.6 (96)                                                           Example2.Key2
+BIT         P1.7 (97)                                                           Example2.Key1
+BIT         P3.4 (B4)                                                           I2C.SCL
+BIT         P3.5 (B5)                                                           I2C.SDA
+BIT         P3.7 (B7)                                                           Example2.SAA7121_Reset
+
+DATA          21     01                                                         I2C.Send_I2C_Byte.Data2Send
+DATA          22     01                                                         I2C.I2C_AddressPresent.IIC_Adr
+DATA          23     01                                                         I2C.BitCounter
+DATA          24     02                                                         Example2.BlinkTimer
+DATA          26     02                                                         Example2.DelayTimer
+DATA          28     01                                                         Example2.Register
+DATA          29     01                                                         Example2.Mode
+DATA          2A     02                                                         Example2.Delay.DelayTime
+
+IDATA         2C     01                                                         System.StackStart
+
+
+XDATA       0000   0002                                                         System.XDATA_StackStart
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+Symbol                                                                          Segment  Address   Size
+------------------------------------------------------------------------------------------------------------------------------------------------
+Example2                                                                        CODE        007A   007B
+Example2.Blink                                                                  BIT         20.2 (02)    
+Example2.BlinkTimer                                                             DATA          24     02
+Example2.Delay                                                                  CODE        003A   000D
+Example2.Delay.DelayTime                                                        DATA          2A     02
+Example2.DelayTimer                                                             DATA          26     02
+Example2.Init                                                                   CODE        0047   0033
+Example2.Key1                                                                   BIT         P1.7 (97)    
+Example2.Key2                                                                   BIT         P1.6 (96)    
+Example2.Key3                                                                   BIT         P1.5 (95)    
+Example2.Key4                                                                   BIT         P1.4 (94)    
+Example2.Led1                                                                   BIT         P1.3 (93)    
+Example2.Led2                                                                   BIT         P1.2 (92)    
+Example2.Led3                                                                   BIT         P1.1 (91)    
+Example2.Led4                                                                   BIT         P1.0 (90)    
+Example2.Mode                                                                   DATA          29     01
+Example2.Register                                                               DATA          28     01
+Example2.SAA7121_Reset                                                          BIT         P3.7 (B7)    
+Example2.Timer_1ms                                                              CODE        000B   002F
+I2C.Ack                                                                         BIT         20.0 (00)    
+I2C.BitCounter                                                                  DATA          23     01
+I2C.Delay                                                                       CODE        0003   0008
+I2C.I2C_AddressPresent                                                          CODE        0138   0016
+I2C.I2C_AddressPresent.I2C_AddressPresent_Result                                BIT         20.1 (01)    
+I2C.I2C_AddressPresent.IIC_Adr                                                  DATA          22     01
+I2C.I2C_AddressPresent.Result                                                   BIT         20.1 (01)    
+I2C.SCL                                                                         BIT         P3.4 (B4)    
+I2C.SDA                                                                         BIT         P3.5 (B5)    
+I2C.Send_I2C_Byte                                                               CODE        010B   002D
+I2C.Send_I2C_Byte.Data2Send                                                     DATA          21     01
+I2C.Start_I2C                                                                   CODE        00F5   000B
+I2C.Stop_I2C                                                                    CODE        0100   000B
+SAA7129.Registers_Normal                                                        CODE        01CE   0080
+SAA7129.Registers_Test                                                          CODE        014E   0080
+System.StackStart                                                               IDATA         2C     01
+System.XDATA_StackStart                                                         XDATA       0000   0002
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+Address    Source file and line number                                                       Source line
+------------------------------------------------------------------------------------------------------------------------------------------------
+   0003    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (144)                   begin
+   0003    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (145)                   Asm
+   0003    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (146)                     MUL  AB
+   0004    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (147)                     MUL  AB
+   0005    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (148)                     MUL  AB
+   0006    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (149)                     MUL  AB
+   0007    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (150)                     MUL  AB
+   0008    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (151)                     MUL  AB
+   0009    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (152)                     MUL  AB
+   000A    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (153)                   end;
+   000A    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (154)                   end;
+   000B    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (43)               begin
+   0012    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (44)                 TL0 :=  Lo (Const1ms);
+   0015    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (45)                 TH0 :=  Hi (Const1ms);
+   0018    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (46)               
+   0018    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (47)                 Inc (BlinkTimer);
+   0020    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (48)                 Blink := BlinkTimer and $0200 <> 0;
+   0026    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (49)                 If DelayTimer <> 0 then Dec (DelayTimer);
+   0035    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (50)               end;
+   003A    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (53)               begin
+   003A    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (54)                 DelayTimer := DelayTime;
+   0040    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (55)                 Repeat
+   0040    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (56)                 until DelayTimer = 0;
+   0046    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (57)               end;
+   0047    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (60)               begin
+   0047    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (61)                 SAA7121_Reset := False;
+   0049    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (62)               
+   0049    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (63)                 TL0 :=  Lo (Const1ms);
+   004C    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (64)                 TH0 :=  Hi (Const1ms);
+   004F    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (65)                 PCON := $00;       { no IDLE, no POWER DOWN }
+   0052    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (66)                 TMOD := %00100001; { Timer1: no GATE, Timer,  8 bit timer, autoreload }
+   0055    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (67)                                    { Timer0: no GATE, Timer, 16 bit timer }
+   0055    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (68)                 TCON := %01010101; { Timer 1 run, Timer 0 run }
+   0058    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (69)                                    { Int1 falling edge, Int0 falling edge }
+   0058    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (70)                 IE   := %10000010; { Timer0}
+   005B    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (71)               
+   005B    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (72)                 Delay (50);
+   0064    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (73)                 SAA7121_Reset := True;
+   0066    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (74)                 Delay (10);
+   006F    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (75)               
+   006F    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (76)                 If not Key1 then Mode := mdTest else Mode := mdNormal;
+   0079    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (77)               end;
+   007A    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (79)               begin
+   007D    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (80)                 Init;
+   0082    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (81)               
+   0082    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (82)                 While not I2C_AddressPresent (I2C_SAA7129_High) do
+   0084    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (83)                   begin
+   0084    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (84)                     Led1 := Blink;
+   0088    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (85)                     Led2 := Blink;
+   008C    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (86)                     Led3 := Blink;
+   0090    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (87)                     Led4 := Blink;
+   0094    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (88)                   end;
+   009B    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (89)               
+   009B    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (90)                 Start_I2C;
+   009E    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (91)                 Send_I2C_Byte (I2C_SAA7129_High);
+   00A4    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (92)                 Send_I2C_Byte ($00);
+   00AA    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (93)                 For Register := $00 to $7F do
+   00AF    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (94)                   Case Mode of
+   00B1    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (95)                     mdTest:   Send_I2C_Byte (Registers_Test   [Register]);
+   00C1    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (96)                     mdNormal: Send_I2C_Byte (Registers_Normal [Register]);
+   00D4    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (97)                   end;
+   00D4    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (98)                 Stop_I2C;
+   00D7    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (100)                Repeat
+   00D7    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (101)                  Case Mode of
+   00D7    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (99)               
+   00D9    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (102)                    mdTest: begin
+   00DC    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (103)                              Led1 := Blink;
+   00E0    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (104)                              Led2 := True;
+   00E2    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (105)                              Led3 := True;
+   00E4    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (106)                              Led4 := True;
+   00E6    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (107)                            end;
+   00E8    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (108)                    mdNormal: begin
+   00EB    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (109)                                Led1 := False;
+   00ED    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (110)                                Led2 := False;
+   00EF    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (111)                                Led3 := False;
+   00F1    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (112)                                Led4 := False;
+   00F3    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (113)                              end;
+   00F3    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (114)                  end;
+   00F3    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (115)                until False;
+   00F5    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\Example2.pas (116)              end.
+   00F5    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (36)                    begin
+   00F5    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (37)                      SCL := High;
+   00F7    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (38)                      Asm
+   00F7    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (39)                        NOP
+   00F8    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (40)                        NOP
+   00F9    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (41)                      end;
+   00F9    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (42)                      SDA := Low;
+   00FB    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (43)                      Asm
+   00FB    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (44)                        NOP
+   00FC    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (45)                        NOP
+   00FD    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (46)                      end;
+   00FD    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (47)                      SCL := Low;
+   00FF    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (48)                    end;
+   0100    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (51)                    begin
+   0100    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (52)                      SDA := Low;
+   0102    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (53)                      Asm
+   0102    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (54)                        NOP
+   0103    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (55)                        NOP
+   0104    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (56)                      end;
+   0104    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (57)                      SCL := High;
+   0106    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (58)                      Asm
+   0106    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (59)                        NOP
+   0107    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (60)                        NOP
+   0108    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (61)                      end;
+   0108    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (62)                      SDA := High;
+   010A    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (63)                    end;
+   010B    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (66)                    begin
+   010B    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (67)                      For BitCounter := 1 to 8 do
+   0112    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (68)                        begin
+   0112    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (69)                          SDA := (Data2Send and $80) <> 0;
+   0116    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (70)                          Asm
+   0116    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (71)                            NOP
+   0117    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (72)                            NOP
+   0118    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (73)                          end;
+   0118    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (74)                          SCL := High;
+   011A    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (75)                          Asm
+   011A    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (76)                            NOP
+   011B    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (77)                            NOP
+   011C    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (78)                          end;
+   011C    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (79)                          SCL := Low;
+   011E    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (80)                          Data2Send := Data2Send shl 1;
+   0122    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (81)                        end;
+   0127    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (82)                      Asm
+   0127    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (83)                        NOP
+   0128    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (84)                      end;
+   0128    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (85)                      SDA := High;
+   012A    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (86)                      Asm
+   012A    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (87)                        NOP
+   012B    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (88)                        NOP
+   012C    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (89)                      end;
+   012C    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (90)                      SCL := High;
+   012E    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (91)                      Asm
+   012E    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (92)                        NOP
+   012F    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (93)                        NOP
+   0130    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (94)                      end;
+   0130    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (95)                      Ack := not SDA;
+   0135    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (96)                      SCL := Low;
+   0137    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (97)                    end;
+   0138    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (157)                   begin
+   0138    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (158)                     Start_I2C;
+   013B    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (159)                     Send_I2C_Byte (IIC_Adr);
+   0141    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (160)                     Stop_I2C;
+   0144    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (161)                     I2C_AddressPresent := Ack;
+   0148    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (162)                     Delay;
+   014B    D:\WEB\turbo51.com\CONTENT\Code Examples\Example2\I2C.pas (163)                   end;
