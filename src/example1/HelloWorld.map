@@ -1,0 +1,111 @@
+Turbo51 version 0.1.3.10, Copyright 2000 - 2011 Igor Funa
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+HelloWorld
+------------------------------------------------------------------------------------------------------------------------------------------------
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas
+                                                                                Segment  Address   Size
+------------------------------------------------------------------------------------------------------------------------------------------------
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (23)           CODE        0019         Asm
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (24)           CODE        0019           CLR   TI
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (25)           CODE        001B           MOV   SBUF, A
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (26)           CODE        001D         @WaitLoop:
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (27)           CODE        001D           JNB   TI, @WaitLoop
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (28)           CODE        0020         end;
+WriteToSerialPort                                                               CODE        0019   0008
+
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (31)           CODE        0021         begin
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (32)           CODE        0021           TL1  := BaudRateTimerValue;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (33)           CODE        0024           TH1  := BaudRateTimerValue;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (34)           CODE        0027           TMOD := %00100001;    { Timer1: no GATE, 8 bit timer, autoreload }
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (35)           CODE        002A           SCON := %01010000;    { Serial Mode 1, Enable Reception }
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (36)           CODE        002D           TI   := True;         { Indicate TX ready }
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (37)           CODE        002F           TR1  := True;         { Enable timer 1 }
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (38)           CODE        0031         
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (39)           CODE        0031           Assign (SerialPort, WriteToSerialPort);
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (40)           CODE        0037         end;
+Init                                                                            CODE        0021   0017
+
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (42)           CODE        0000         begin
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (43)           CODE        0003           Init;
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (44)           CODE        0006           Writeln (SerialPort, 'Hello world!');
+D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (45)           CODE        0017         end.
+SerialPort                                                                      DATA          24     04
+------------------------------------------------------------------------------------------------------------------------------------------------
+HelloWorld                                                                      CODE        0000   0019
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+System                                                                         NO DEBUG INFO
+------------------------------------------------------------------------------------------------------------------------------------------------
+D:\Projects\Turbo51\RTL\System\System.pas
+                                                                                Segment  Address   Size
+------------------------------------------------------------------------------------------------------------------------------------------------
+sysWriteLine                                                                    CODE        003D   000A
+sysWriteStr_CODE                                                                CODE        0047   002A
+StackStart                                                                      IDATA         28     01
+XDATA_StackStart                                                                XDATA       0000   0002
+CurrentIO                                                                       DATA          20     04
+------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+Segment  Address   Size                                                         Symbol
+------------------------------------------------------------------------------------------------------------------------------------------------
+CODE        0000   0019                                                         HelloWorld
+CODE        0019   0008                                                         HelloWorld.WriteToSerialPort
+CODE        0021   0017                                                         HelloWorld.Init
+CODE        003D   000A                                                         System.sysWriteLine
+CODE        0047   002A                                                         System.sysWriteStr_CODE
+
+
+
+DATA          20     04                                                         System.CurrentIO
+DATA          24     04                                                         HelloWorld.SerialPort
+
+IDATA         28     01                                                         System.StackStart
+
+
+XDATA       0000   0002                                                         System.XDATA_StackStart
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+Symbol                                                                          Segment  Address   Size
+------------------------------------------------------------------------------------------------------------------------------------------------
+HelloWorld                                                                      CODE        0000   0019
+HelloWorld.Init                                                                 CODE        0021   0017
+HelloWorld.SerialPort                                                           DATA          24     04
+HelloWorld.WriteToSerialPort                                                    CODE        0019   0008
+System.CurrentIO                                                                DATA          20     04
+System.StackStart                                                               IDATA         28     01
+System.sysWriteLine                                                             CODE        003D   000A
+System.sysWriteStr_CODE                                                         CODE        0047   002A
+System.XDATA_StackStart                                                         XDATA       0000   0002
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+Address    Source file and line number                                                       Source line
+------------------------------------------------------------------------------------------------------------------------------------------------
+   0000    D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (42)             begin
+   0003    D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (43)               Init;
+   0006    D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (44)               Writeln (SerialPort, 'Hello world!');
+   0017    D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (45)             end.
+   0019    D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (23)             Asm
+   0019    D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (24)               CLR   TI
+   001B    D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (25)               MOV   SBUF, A
+   001D    D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (26)             @WaitLoop:
+   001D    D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (27)               JNB   TI, @WaitLoop
+   0020    D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (28)             end;
+   0021    D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (31)             begin
+   0021    D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (32)               TL1  := BaudRateTimerValue;
+   0024    D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (33)               TH1  := BaudRateTimerValue;
+   0027    D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (34)               TMOD := %00100001;    { Timer1: no GATE, 8 bit timer, autoreload }
+   002A    D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (35)               SCON := %01010000;    { Serial Mode 1, Enable Reception }
+   002D    D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (36)               TI   := True;         { Indicate TX ready }
+   002F    D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (37)               TR1  := True;         { Enable timer 1 }
+   0031    D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (38)             
+   0031    D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (39)               Assign (SerialPort, WriteToSerialPort);
+   0037    D:\WEB\turbo51.com\CONTENT\Code Examples\Example1\HelloWorld.pas (40)             end;
