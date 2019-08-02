@@ -21,3 +21,5 @@ example5: Display controller - another real 8051 project.
 example6: Keyboard/RS232 interface controller - simple 8051 project.
 
 example7: Communication controller - complex 8051 project using interrupts, RS485 serial communication, DAC conversions, I2C, EEPROM, etc.
+
+Copyright © 2019 Igor Funa. All Rights Reserved.
